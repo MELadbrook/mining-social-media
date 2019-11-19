@@ -30,9 +30,10 @@ def make_csv(page_id):
                 for video in videos.get("items"):
                     video_data_row = [
                         video["snippet"]["publishedAt"],
-                        video["snippet"]["title"],
-                        video["snippet"]["description"],
+                        video["snippet"]["title"].encode("utf-8"),
+                        video["snippet"]["description"].encode("utf-8"),
                         video["snippet"]["thumbnails"]["default"]["url"]
+                            .encode("utf-8")
                         ]
                     csv_writer.writerow(video_data_row)
             if "nextPageToken" in videos.keys():
@@ -42,3 +43,5 @@ def make_csv(page_id):
             else:
                 print("no more videos!")
                 has_another_page = False
+
+make_csv(channel_id)
